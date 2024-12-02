@@ -1,6 +1,15 @@
+
 .Imagepaint {
-    width: 300px;
-    height: auto;
+    height: auto; 
     border: 2px solid #ccc;
     border-radius: 8px;
+    width: 100%;
+
 }
+.ImageContenaire {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    
+    width: 50%; 
+  }

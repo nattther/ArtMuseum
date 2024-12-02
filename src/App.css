@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+.ImageContenaires {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+
+  width: 100%; 
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
