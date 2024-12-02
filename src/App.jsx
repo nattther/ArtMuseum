@@ -4,7 +4,7 @@ import data from './infosMockAPI.json';
 
 function App() {
   const paintings = data.artObjects.map((item) => ({
-    imageUrl: item.webImage?.url, // Vérifie si webImage existe avant d'accéder à url
+    imageUrl: item.webImage.url,
     author: item.principalOrFirstMaker,
     title: item.title,
   }));
