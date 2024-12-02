@@ -11,4 +11,6 @@
     flex-wrap: wrap; 
     justify-content: center;
     width: 48%; 
+    background: white;
+    color:black
   }
