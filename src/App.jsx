@@ -1,17 +1,24 @@
-
 import './App.css';
-import PaintingDisplay from './PaintingDisplay'; 
+import PaintingDisplay from './PaintingDisplay';
+import data from './infosMockAPI.json';
 
 function App() {
+  const paintings = data.artObjects.map((item) => ({
+    imageUrl: item.webImage?.url, // Vérifie si webImage existe avant d'accéder à url
+    author: item.principalOrFirstMaker,
+    title: item.title,
+  }));
   return (
-    <>
-<div className="ImageContenaires">
-      <PaintingDisplay /> 
-      <PaintingDisplay /> 
-      <PaintingDisplay /> 
-      </div>
-
-    </>
+    <div className="ImageContenaires">
+      {paintings.map((painting, index) => (
+          <PaintingDisplay
+          key={index}
+          imageUrl={painting.imageUrl}
+          author={painting.author}
+          title={painting.title}
+        />
+      ))}
+    </div>
   );
 }
 
