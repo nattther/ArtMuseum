@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import PaintingDisplay from "./PaintingDisplay";
-import Pagination from "./pagination";
+import PaintingDisplay from "./component/PaintingDisplay";
+import Pagination from "./component/pagination";
 
 function App() {
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
