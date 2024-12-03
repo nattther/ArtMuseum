@@ -1,23 +1,34 @@
-.Imagepaint {
+.ImagePaint {
     height: auto;
     border: 2px solid #ccc;
     border-radius: 8px;
     width: 100%;
-
+    object-fit: cover; 
 }
 
-.ImageContenaire {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 48%;
-    background: white;
-    color: black
-}
-
-.InfoContenaire {
+.PaintingContainer {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    background: white;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.LandscapeContainer {
+    width: 98%; 
+}
+
+.PortraitContainer {
+    width: 48%; 
+}
+
+.InfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    padding: 10px;
 }
