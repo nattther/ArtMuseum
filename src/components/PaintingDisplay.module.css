@@ -1,10 +1,11 @@
-.ImagePaint {
-    height: auto;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    object-fit: cover; 
+.ImageContenaires {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 4rem;
+    justify-content: center;
 }
+
 
 .PaintingContainer {
     display: flex;
@@ -15,20 +16,35 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 45%;
 }
 
-.LandscapeContainer {
-    width: 98%; 
+
+.ImagePaint {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
 }
 
-.PortraitContainer {
-    width: 48%; 
-}
 
 .InfoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 10px;
+    text-align: center;
+}
+
+
+.LandscapeContainer {
+    width: 98%;
+}
+
+@media (max-width: 768px) {
+    .PaintingContainer {
+        width: 100%;
+    }
+
+    .ImageContenaires {
+        padding: 2rem;
+    }
 }
