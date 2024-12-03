@@ -28,7 +28,7 @@ function App() {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -63,7 +63,9 @@ function App() {
           <div className="ImageContenaires">
             {currentItems.map((item, index) => {
               const orientation =
-                item.webImage.width > item.webImage.height ? "paysage" : "portrait";
+                item.webImage.width > item.webImage.height
+                  ? "paysage"
+                  : "portrait";
               return (
                 <PaintingDisplay
                   key={index}
@@ -81,6 +83,10 @@ function App() {
             totalPages={totalPages}
             onPreviousPage={goToPreviousPage}
             onNextPage={goToNextPage}
+            onPageChange={(page) => {
+              setCurrentPage(page);
+              scrollToTop();
+            }}
           />
         </>
       )}
