@@ -1,57 +1,41 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import "./App.css";
-import PaintingDisplay from "./component/PaintingDisplay";
-import Pagination from "./component/pagination";
+import useFetchData from "./hooks/useFetchData";
+import PaintingList from "./components/PaintingList";
+import Pagination from "./components/Pagination";
 
 function App() {
   const itemsPerPage = 5;
-  const [data, setData] = useState([]);
+  const { data, loading } = useFetchData();
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = data.slice(startIndex, startIndex + itemsPerPage);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-      const response = await fetch(
-        `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
-      );
-      const result = await response.json();
-      setData(result.artObjects);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données :", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const goToPreviousPage = () => {
+  const onPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       scrollToTop();
     }
   };
 
-  const goToNextPage = () => {
+  const onNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
       scrollToTop();
     }
+  };
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+    scrollToTop();
   };
 
   return (
@@ -60,33 +44,13 @@ function App() {
         <div>Chargement des données...</div>
       ) : (
         <>
-          <div className="ImageContenaires">
-            {currentItems.map((item, index) => {
-              const orientation =
-                item.webImage.width > item.webImage.height
-                  ? "paysage"
-                  : "portrait";
-              return (
-                <PaintingDisplay
-                  key={index}
-                  imageUrl={item.webImage.url}
-                  author={item.principalOrFirstMaker}
-                  title={item.title}
-                  orientation={orientation}
-                />
-              );
-            })}
-          </div>
-
+          <PaintingList items={currentItems} />
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPreviousPage={goToPreviousPage}
-            onNextPage={goToNextPage}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-              scrollToTop();
-            }}
+            onPreviousPage={onPreviousPage}
+            onNextPage={onNextPage}
+            onPageChange={onPageChange}
           />
         </>
       )}
