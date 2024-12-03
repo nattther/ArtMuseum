@@ -1,6 +1,8 @@
 import styles from './PaintingDisplay.module.css';
 
-function PaintingDisplay({ imageUrl, author, title }) {
+function PaintingDisplay({ imageUrl, author, title, orientation }) {
+
+
   return (
     <div className={styles.ImageContenaire}>
       <img className={styles.Imagepaint} src={imageUrl} alt={title} />

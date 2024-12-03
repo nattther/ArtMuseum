@@ -7,7 +7,9 @@ function App() {
     imageUrl: item.webImage.url,
     author: item.principalOrFirstMaker,
     title: item.title,
+    orientation: item.width > item.heigth?  'paysage' : 'portrait'
   }));
+
   return (
     <div className="ImageContenaires">
       {paintings.map((painting, index) => (
@@ -16,6 +18,7 @@ function App() {
           imageUrl={painting.imageUrl}
           author={painting.author}
           title={painting.title}
+          orientation={painting.orientation}
         />
       ))}
     </div>
