@@ -1,19 +1,20 @@
 import { useState } from "react";
 import "./App.css";
 import PaintingDisplay from "./PaintingDisplay";
+import Pagination from "./pagination";
 import data from "./infosMockAPI.json";
 
 function App() {
-
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.artObjects.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = data.artObjects.slice(startIndex, startIndex + itemsPerPage);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", 
+      behavior: "smooth",
     });
   };
 
@@ -30,6 +31,7 @@ function App() {
       scrollToTop();
     }
   };
+
   return (
     <div className="App">
       <div className="ImageContenaires">
@@ -47,18 +49,12 @@ function App() {
         })}
       </div>
 
-
-      <div className="Pagination">
-        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-           Précédent
-        </button>
-        <span>
-          Page {currentPage} sur {totalPages}
-        </span>
-        <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Suivant -
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPreviousPage={goToPreviousPage}
+        onNextPage={goToNextPage}
+      />
     </div>
   );
 }
