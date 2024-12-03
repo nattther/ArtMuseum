@@ -16,7 +16,7 @@ function App() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const apiKey = "pYwXfSZ3"
+      const apiKey = import.meta.env.VITE_API_KEY;
       const response = await fetch(
         `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
       );
@@ -28,7 +28,7 @@ function App() {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);
