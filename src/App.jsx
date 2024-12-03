@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import PaintingDisplay from "./PaintingDisplay";
 import Pagination from "./pagination";
-import data from "./infosMockAPI.json";
 
 function App() {
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.artObjects.length / itemsPerPage);
+  const [loading, setLoading] = useState(true);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = data.artObjects.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = data.slice(startIndex, startIndex + itemsPerPage);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const apiKey = "pYwXfSZ3"
+      const response = await fetch(
+        `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
+      );
+      const result = await response.json();
+      setData(result.artObjects);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données :", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -34,27 +56,34 @@ function App() {
 
   return (
     <div className="App">
-      <div className="ImageContenaires">
-        {currentItems.map((item, index) => {
-          const orientation = item.webImage.width > item.webImage.height ? "paysage" : "portrait";
-          return (
-            <PaintingDisplay
-              key={index}
-              imageUrl={item.webImage.url}
-              author={item.principalOrFirstMaker}
-              title={item.title}
-              orientation={orientation}
-            />
-          );
-        })}
-      </div>
+      {loading ? (
+        <div>Chargement des données...</div>
+      ) : (
+        <>
+          <div className="ImageContenaires">
+            {currentItems.map((item, index) => {
+              const orientation =
+                item.webImage.width > item.webImage.height ? "paysage" : "portrait";
+              return (
+                <PaintingDisplay
+                  key={index}
+                  imageUrl={item.webImage.url}
+                  author={item.principalOrFirstMaker}
+                  title={item.title}
+                  orientation={orientation}
+                />
+              );
+            })}
+          </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPreviousPage={goToPreviousPage}
-        onNextPage={goToNextPage}
-      />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPreviousPage={goToPreviousPage}
+            onNextPage={goToNextPage}
+          />
+        </>
+      )}
     </div>
   );
 }
