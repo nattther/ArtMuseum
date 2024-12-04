@@ -1,19 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import useFetchData from "../netlify/functions/usefetchdata";
 import PaintingList from "./components/PaintingList";
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
 
-function App() {
-  const itemsPerPage = 5;
-  const { data, loading } = useFetchData();
+const App = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/.netlify/functions/usefetchdata"); 
+      const result = await response.json();
+      console.log("Données reçues :", result);
+      setData(result);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données :", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
- 
+ const itemsPerPage = 5;
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );

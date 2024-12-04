@@ -1,31 +1,30 @@
+/* eslint-disable no-undef */
 
-import { useState, useEffect } from "react";
-
-const useFetchData = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-      const response = await fetch(
-        `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
-      );
-      const result = await response.json();
-      setData(result.artObjects);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données :", error);
-    } finally {
-      setLoading(false);
+exports.handler = async function () {
+  try {
+    const apiKey = process.env.VITE_API_KEY;
+    if (!apiKey) {
+      throw new Error("La clé API est manquante !");
     }
-  };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+    const response = await fetch(
+      `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
+    );
 
-  return { data, loading };
+    if (!response.ok) {
+      throw new Error(`Erreur API Rijksmuseum : ${response.status}`);
+    }
+
+    const data = await response.json();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data.artObjects),
+    };
+  } catch (error) {
+    console.error("Erreur dans la fonction serverless :", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
 };
-
-export default useFetchData;
