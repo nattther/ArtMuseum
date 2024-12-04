@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import useFetchData from "./hooks/useFetchData";
+import useFetchData from "../netlify/functions/usefetchdata";
 import PaintingList from "./components/PaintingList";
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
