@@ -1,50 +1,68 @@
-.ImageContenaires {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 4rem;
-    justify-content: center;
+.paintingItem {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin-bottom: 2rem;
+
 }
 
-
-.PaintingContainer {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    color: black;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+  .paintingItem:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  .imageWrapper {
+    width: 100%;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    width: 45%;
-}
-
-
-.ImagePaint {
+  }
+  
+  .paintingImage {
     width: 100%;
     height: auto;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-}
-
-
-.InfoContainer {
-    padding: 10px;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .paintingItem:hover .paintingImage {
+    transform: scale(1.1);
+  }
+  
+  .paintingContent {
+    padding: 20px;
     text-align: center;
-}
+  }
+  
+  .paintingTitle {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+  
+  .paintingAuthor {
+    font-size: 18px;
+    color: #7f8c8d;
+  }
+  
 
+  .paysage {
+    width: 100%;
+  }
+  
+  .portrait {
+    width: 30%;
 
-.LandscapeContainer {
-    width: 98%;
-}
-
+  }
+  
+  
 @media (max-width: 768px) {
-    .PaintingContainer {
-        width: 100%;
-    }
+  .portrait {
+    width: 100%;
 
-    .ImageContenaires {
-        padding: 2rem;
-    }
+  }
+
 }

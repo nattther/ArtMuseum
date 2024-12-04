@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import PaintingDisplay from "./PaintingDisplay";
+import styles from "./PaintingList.module.css";
 
 const PaintingList = ({ items }) => {
   return (
-    <div className="ImageContenaires">
+    <div className={styles.imageContainer}>
       {items.map((item, index) => {
         const orientation =
           item.webImage.width > item.webImage.height ? "paysage" : "portrait";

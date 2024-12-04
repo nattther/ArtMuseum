@@ -1,19 +1,28 @@
-
 import { useState } from "react";
 import "./App.css";
 import useFetchData from "./hooks/useFetchData";
 import PaintingList from "./components/PaintingList";
 import Pagination from "./components/Pagination";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   const itemsPerPage = 5;
   const { data, loading } = useFetchData();
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+
+ 
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = data.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -38,20 +47,32 @@ function App() {
     scrollToTop();
   };
 
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); 
+  };
+
   return (
     <div className="App">
       {loading ? (
         <div>Chargement des données...</div>
       ) : (
         <>
+
+          <SearchBar searchQuery={searchQuery} onSearchChange={handleSearchChange} />
+
           <PaintingList items={currentItems} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPreviousPage={onPreviousPage}
-            onNextPage={onNextPage}
-            onPageChange={onPageChange}
-          />
+
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPreviousPage={onPreviousPage}
+              onNextPage={onNextPage}
+              onPageChange={onPageChange}
+            />
+          )}
         </>
       )}
     </div>

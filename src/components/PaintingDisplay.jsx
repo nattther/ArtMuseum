@@ -1,21 +1,18 @@
-/* eslint-disable react/prop-types */
-import styles from './PaintingDisplay.module.css';
 
-function PaintingDisplay({ imageUrl, author, title, orientation }) {
-  const containerClass =
-    orientation === 'paysage'
-      ? styles.LandscapeContainer
-      : styles.PortraitContainer;
+import styles from "./PaintingDisplay.module.css";
 
+const PaintingDisplay = ({ imageUrl, author, title, orientation }) => {
   return (
-    <div className={`${styles.PaintingContainer} ${containerClass}`}>
-      <img className={styles.ImagePaint} src={imageUrl} alt={title} />
-      <div className={styles.InfoContainer}>
-        <p>{title}</p>
-        <p>{author}</p>
+    <div className={`${styles.paintingItem} ${styles[orientation]}`}>
+      <div className={styles.imageWrapper}>
+        <img src={imageUrl} alt={title} className={styles.paintingImage} />
+      </div>
+      <div className={styles.paintingContent}>
+        <h2 className={styles.paintingTitle}>{title}</h2>
+        <p className={styles.paintingAuthor}>{author}</p>
       </div>
     </div>
   );
-}
+};
 
 export default PaintingDisplay;
