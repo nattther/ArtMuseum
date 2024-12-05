@@ -18,17 +18,28 @@
   }
   
   .imageWrapper {
+    position: relative; /* Ajoutez cette ligne */
     width: 100%;
     overflow: hidden;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0px; 
+    color: white; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 100%;
   }
   
   .paintingImage {
     width: 100%;
     height: auto;
-    max-height: 25rem;
     display: block;
     transition: transform 0.5s ease;
   }
+  
   
   .paintingItem:hover .paintingImage {
     transform: scale(1.1);
@@ -40,14 +51,15 @@
   }
   
   .paintingTitle {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #34495e;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+
   }
   
   .paintingAuthor {
-    font-size: 18px;
-    color: #7f8c8d;
+    font-size: 1rem;
+    margin: 0;
+
   }
   
 

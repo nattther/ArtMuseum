@@ -9,10 +9,11 @@ const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = async (searchTerm = "") => {
     setLoading(true);
     try {
-      const response = await fetch("/.netlify/functions/usefetchdata");
+      const queryParam = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : '';
+      const response = await fetch(`/.netlify/functions/usefetchdata${queryParam}`);
       const result = await response.json();
       console.log("Données reçues :", result);
       setData(result);
@@ -36,9 +37,7 @@ const App = () => {
   };
 
   const itemsPerPage = 10;
-  const filteredData = data.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = data; 
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -73,6 +72,10 @@ const App = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleSearch = () => {
+    fetchData(searchQuery);
     setCurrentPage(1);
   };
 
@@ -87,6 +90,7 @@ const App = () => {
           <SearchBar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
+            onSearch={handleSearch}
           />
 
           <PaintingList
