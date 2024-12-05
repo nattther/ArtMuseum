@@ -8,7 +8,7 @@ exports.handler = async function () {
     }
 
     const response = await fetch(
-      `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=50`
+      `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&ps=100`
     );
 
     if (!response.ok) {

@@ -12,7 +12,7 @@ const App = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/.netlify/functions/usefetchdata"); 
+      const response = await fetch("/.netlify/functions/usefetchdata");
       const result = await response.json();
       console.log("Données reçues :", result);
       setData(result);
@@ -27,7 +27,6 @@ const App = () => {
     fetchData();
   }, []);
 
-  
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPainting, setSelectedPainting] = useState(null);
@@ -35,17 +34,19 @@ const App = () => {
   const handlePaintingClick = (paintingData) => {
     setSelectedPainting(paintingData);
   };
-  
- const itemsPerPage = 5;
+
+  const itemsPerPage = 5;
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredData.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -70,10 +71,9 @@ const App = () => {
     scrollToTop();
   };
 
-
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   return (
@@ -82,10 +82,18 @@ const App = () => {
         <div>Chargement des données...</div>
       ) : (
         <>
-          <SearchBar searchQuery={searchQuery} onSearchChange={handleSearchChange} />
-  
-          <PaintingList items={currentItems} onPaintingClick={handlePaintingClick} />
-  
+          <h1 className="app-title">Galerie du Rijksmuseum</h1>
+
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+          />
+
+          <PaintingList
+            items={currentItems}
+            onPaintingClick={handlePaintingClick}
+          />
+
           {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
@@ -95,7 +103,7 @@ const App = () => {
               onPageChange={onPageChange}
             />
           )}
-  
+
           {selectedPainting && (
             <PaintingModal
               painting={selectedPainting}
@@ -106,6 +114,6 @@ const App = () => {
       )}
     </div>
   );
-}
+};
 
 export default App;
