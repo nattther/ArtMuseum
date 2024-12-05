@@ -16,3 +16,35 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
   }
+  
+  .searchButton {
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .searchButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Ajustements pour la responsivité */
+  @media (max-width: 600px) {
+    .searchContainer {
+      flex-direction: column;
+    }
+  
+    .searchInput,
+    .searchButton {
+      width: 90%;
+      max-width: none;
+      margin: 5px 0;
+    }
+  
+    .searchButton {
+      margin-left: 0;
+      width: 100%;
+    }
+  }

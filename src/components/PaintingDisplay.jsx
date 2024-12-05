@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./PaintingDisplay.module.css";
 
 const PaintingDisplay = ({ imageUrl, author, title, orientation, onPaintingClick }) => {
