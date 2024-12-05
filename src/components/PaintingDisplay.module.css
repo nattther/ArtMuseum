@@ -9,6 +9,7 @@
   cursor: pointer;
   margin-bottom: 2rem;
 
+
 }
 
   .paintingItem:hover {
@@ -24,6 +25,7 @@
   .paintingImage {
     width: 100%;
     height: auto;
+    max-height: 25rem;
     display: block;
     transition: transform 0.5s ease;
   }
@@ -55,6 +57,7 @@
   
   .portrait {
     width: 30%;
+
 
   }
   

@@ -35,7 +35,7 @@ const App = () => {
     setSelectedPainting(paintingData);
   };
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );

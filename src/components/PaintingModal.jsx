@@ -8,10 +8,10 @@ const PaintingModal = ({ painting, onClose }) => {
         <span className={styles.closeButton} onClick={onClose}>
           &times;
         </span>
-        <h2>{painting.title}</h2>
-        <p>{painting.longTitle}</p>
+        <h2 className={styles.paintingModalTitle}>{painting.title}</h2>
+        <p className={styles.paintingData}>{painting.longTitle}</p>
         <img src={painting.webImage.url} alt={painting.title} className={styles.imgModal} />
-        <p>Auteur : {painting.principalOrFirstMaker}</p>
+        <p className={styles.paintingData}>Auteur : {painting.principalOrFirstMaker}</p>
       </div>
     </div>
   );
