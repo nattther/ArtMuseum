@@ -18,9 +18,10 @@
   }
   
   .imageWrapper {
-    position: relative; /* Ajoutez cette ligne */
+    position: relative; 
     width: 100%;
     overflow: hidden;
+    min-height: 3rem;
   }
   
   .overlay {
@@ -38,6 +39,8 @@
     height: auto;
     display: block;
     transition: transform 0.5s ease;
+    object-fit: cover;
+    min-height: 8rem;
   }
   
   

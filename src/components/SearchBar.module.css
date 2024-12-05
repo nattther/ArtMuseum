@@ -30,7 +30,6 @@
     background-color: #0056b3;
   }
   
-  /* Ajustements pour la responsivité */
   @media (max-width: 600px) {
     .searchContainer {
       flex-direction: column;
