@@ -1,9 +1,12 @@
 
 import styles from "./PaintingDisplay.module.css";
 
-const PaintingDisplay = ({ imageUrl, author, title, orientation }) => {
+const PaintingDisplay = ({ imageUrl, author, title, orientation, onPaintingClick }) => {
   return (
-    <div className={`${styles.paintingItem} ${styles[orientation]}`}>
+    <div
+      className={`${styles.paintingItem} ${styles[orientation]}`}
+      onClick={onPaintingClick}
+    >
       <div className={styles.imageWrapper}>
         <img src={imageUrl} alt={title} className={styles.paintingImage} />
       </div>
@@ -14,5 +17,6 @@ const PaintingDisplay = ({ imageUrl, author, title, orientation }) => {
     </div>
   );
 };
+
 
 export default PaintingDisplay;

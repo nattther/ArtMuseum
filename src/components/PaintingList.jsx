@@ -3,7 +3,7 @@
 import PaintingDisplay from "./PaintingDisplay";
 import styles from "./PaintingList.module.css";
 
-const PaintingList = ({ items }) => {
+const PaintingList = ({ items, onPaintingClick }) => {
   return (
     <div className={styles.imageContainer}>
       {items.map((item, index) => {
@@ -16,6 +16,7 @@ const PaintingList = ({ items }) => {
             author={item.principalOrFirstMaker}
             title={item.title}
             orientation={orientation}
+            onPaintingClick={() => onPaintingClick(item)}
           />
         );
       })}

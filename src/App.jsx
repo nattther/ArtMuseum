@@ -3,6 +3,7 @@ import "./App.css";
 import PaintingList from "./components/PaintingList";
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
+import PaintingModal from "./components/PaintingModal";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -29,7 +30,12 @@ const App = () => {
   
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPainting, setSelectedPainting] = useState(null);
 
+  const handlePaintingClick = (paintingData) => {
+    setSelectedPainting(paintingData);
+  };
+  
  const itemsPerPage = 5;
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -76,11 +82,10 @@ const App = () => {
         <div>Chargement des données...</div>
       ) : (
         <>
-
           <SearchBar searchQuery={searchQuery} onSearchChange={handleSearchChange} />
-
-          <PaintingList items={currentItems} />
-
+  
+          <PaintingList items={currentItems} onPaintingClick={handlePaintingClick} />
+  
           {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
@@ -88,6 +93,13 @@ const App = () => {
               onPreviousPage={onPreviousPage}
               onNextPage={onNextPage}
               onPageChange={onPageChange}
+            />
+          )}
+  
+          {selectedPainting && (
+            <PaintingModal
+              painting={selectedPainting}
+              onClose={() => setSelectedPainting(null)}
             />
           )}
         </>
